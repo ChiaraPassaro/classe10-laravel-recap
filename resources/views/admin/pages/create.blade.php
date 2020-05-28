@@ -36,7 +36,8 @@
               @foreach ($tags as $key => $tag)  
                  
               <label for="tags-{{$tag->id}}">{{$tag->name}}</label>
-              <input type="checkbox" name="tags[]" id="tags-{{$tag->id}}" value="{{$tag->id}}" {{(!empty(old('tags.'. $key))) ? 'checked' : ''}}>
+              <input type="checkbox" name="tags[]" id="tags-{{$tag->id}}" value="{{$tag->id}}" 
+              {{ (is_array(old('tags')) && in_array($tag->id, old('tags'))) ? 'checked' : ''}}>
                 @endforeach
             </div>
             <div class="form-group">
@@ -44,7 +45,7 @@
               @foreach ($photos as $photo)       
               <label for="photos-{{$photo->id}}">{{$photo->name}}</label>
               <input type="checkbox" name="photos[]" id="photos-{{$photo->id}}" value="{{$photo->id}}">
-                @endforeach
+              @endforeach
             </div>
             <input type="submit" value="Salva" class="btn btn-primary">
           </form>
