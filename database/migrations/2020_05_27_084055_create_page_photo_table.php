@@ -15,7 +15,9 @@ class CreatePagePhotoTable extends Migration
     {
         Schema::create('page_photo', function (Blueprint $table) {
             $table->id();
+            //relazione pagine
             $table->foreignId('page_id')->constrained();
+            //relazione photo
             $table->foreignId('photo_id')->constrained();
             $table->timestamps();
         });

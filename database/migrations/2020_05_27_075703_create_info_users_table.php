@@ -14,7 +14,9 @@ class CreateInfoUsersTable extends Migration
     public function up()
     {
         Schema::create('info_users', function (Blueprint $table) {
+            //relazione con user
             $table->foreignId('user_id')->constrained();
+            
             $table->text('bio');
             $table->string('linkedin')->nullable();
             $table->string('twitter')->nullable();
