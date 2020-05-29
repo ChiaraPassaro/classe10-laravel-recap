@@ -6,12 +6,12 @@
           @foreach ($errors->all() as $message)
               {{$message}}
           @endforeach
-          <form action="{{route('admin.pages.store')}}" method="POST">
+          <form action="{{route('admin.pages.store')}}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('POST')
             <div class="form-group">
               <label for="title">Titolo</label>
-            <input type="text" name="title" id="title" class="form-control" value="{{old('title')}}">
+              <input type="text" name="title" id="title" class="form-control" value="{{old('title')}}">
             </div>
             <div class="form-group">
               <label for="summary">Sommario</label>
@@ -33,19 +33,37 @@
             </div>
             <div class="form-group">
               <h3>Tags</h3>
-              @foreach ($tags as $key => $tag)  
-                 
+
+           
+              {{-- 
+                $arrayOldTags = old('tags')
+                $tags   collection da DB
+                se nell'array di tag precedentemente selezionati
+                è presente il mio tag id
+                in_array(2, $arrayOldTags) 
+                --}}
+                {{-- i vecchi tag selezionati --}}
+                @php
+                // // var_dump(old('tags'));
+                // $array = [1, 2];
+                // if(in_array(3, $array)) {
+                //   echo 'true';
+                // }
+                @endphp
+              @foreach ($tags as $tag)  
               <label for="tags-{{$tag->id}}">{{$tag->name}}</label>
               <input type="checkbox" name="tags[]" id="tags-{{$tag->id}}" value="{{$tag->id}}" 
               {{ (is_array(old('tags')) && in_array($tag->id, old('tags'))) ? 'checked' : ''}}>
-                @endforeach
+              @endforeach
             </div>
             <div class="form-group">
-              <h3>Photos</h3>
-              @foreach ($photos as $photo)       
+              <h3>Photo</h3>
+              {{-- @foreach ($photos as $photo)       
               <label for="photos-{{$photo->id}}">{{$photo->name}}</label>
               <input type="checkbox" name="photos[]" id="photos-{{$photo->id}}" value="{{$photo->id}}">
-              @endforeach
+              @endforeach --}}
+              <label for="photo">Fotografia</label>
+              <input type="file" name="photo" id="photo">
             </div>
             <input type="submit" value="Salva" class="btn btn-primary">
           </form>
